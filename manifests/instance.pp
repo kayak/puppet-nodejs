@@ -36,6 +36,7 @@ define nodejs::instance(
   String $install_dir,
   Optional[String] $source = undef,
   Optional[String] $version = undef,
+  Optional[String] $urlbase = undef,
 ) {
   if $caller_module_name != $module_name {
     warning('nodejs::instance is private!')
@@ -90,8 +91,13 @@ define nodejs::instance(
       mode   => '0644',
     })
 
-    $download_source = $source ? {
-      undef   => "https://nodejs.org/dist/${node_version}/${node_filename}",
+    $base_url = $urlbase ? {
+      undef   => "https://nodejs.org/dist",
+      default => $urlbase,
+    }
+
+     $download_source = $source ? {
+      undef   => "${base_url}/${node_version}/${node_filename}",
       default => $source,
     }
 

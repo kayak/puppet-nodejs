@@ -56,6 +56,7 @@ class nodejs(
   String $nodejs_default_path        = $::nodejs::params::nodejs_default_path,
   String $install_dir                = $::nodejs::params::install_dir,
   Optional[String] $source           = $::nodejs::params::source,
+  Optional[String] $urlbase          = $::nodejs::params::urlbase,
 ) inherits ::nodejs::params  {
   $node_version = $source ? {
     undef   => ::nodejs::evaluate_version($version),
@@ -81,6 +82,7 @@ class nodejs(
       download_timeout    => $download_timeout,
       install_dir         => $install_dir,
       source              => $source,
+      urlbase             => $urlbase,
     } ->
     # TODO remove!
     file { '/etc/profile.d/nodejs.sh':

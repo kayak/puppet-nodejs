@@ -26,4 +26,5 @@ class nodejs::params {
   $build_deps          = true
   $nodejs_default_path = '/usr/local/node/node-default'
   $source              = undef
+  $urlbase             = undef
 }

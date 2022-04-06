@@ -43,6 +43,7 @@ class nodejs::instances(
   Integer $download_timeout,
   String $install_dir,
   Optional[String] $source = undef,
+  Optional[String] $urlbase = undef,
 ) {
   if $caller_module_name != $module_name {
     warning('nodejs::instances is private!')
@@ -59,6 +60,7 @@ class nodejs::instances(
       timeout              => $download_timeout,
       install_dir          => $install_dir,
       source               => $source,
+      urlbase              => $urlbase,
     }
   } else {
     create_resources('::nodejs::instance', ::nodejs::node_instances($instances, true), {
@@ -69,6 +71,7 @@ class nodejs::instances(
       default_node_version => undef,
       timeout              => $download_timeout,
       install_dir          => $install_dir,
+      urlbase              => $urlbase,
     })
 
     if !defined(Nodejs::Instance["nodejs-custom-instance-${$node_version}"]) {
